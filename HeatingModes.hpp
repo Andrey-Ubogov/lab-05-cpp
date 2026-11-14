@@ -1,17 +1,17 @@
-#pragma once
+п»ї#pragma once
 #include "IHeatingMode.hpp"
 #include <string>
 
-// Режим "Экономия"
+// Р РµР¶РёРј "Р­РєРѕРЅРѕРјРёСЏ"
 class EconomyMode : public IHeatingMode {
 public:
     int GetTargetTemperature() const override { return 18; }
-    std::string GetModeName() const override { return "Экономия"; }
+    std::string GetModeName() const override { return "Р­РєРѕРЅРѕРјРёСЏ"; }
 };
 
-// Режим "Комфорт"
+// Р РµР¶РёРј "РљРѕРјС„РѕСЂС‚"
 class ComfortMode : public IHeatingMode {
 public:
     int GetTargetTemperature() const override { return 23; }
-    std::string GetModeName() const override { return "Комфорт"; }
+    std::string GetModeName() const override { return "РљРѕРјС„РѕСЂС‚"; }
 };

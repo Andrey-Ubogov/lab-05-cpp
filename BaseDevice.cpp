@@ -1,21 +1,21 @@
-#include "BaseDevice.hpp"
+ï»¿#include "BaseDevice.hpp"
 #include "Exceptions.hpp"
 
 BaseDevice::BaseDevice(const std::string& name, int power, std::shared_ptr<std::string> roomName)
     : m_id(NextId()), m_name(name), m_isOn(false), m_isBroken(false),
     m_powerConsumption(power), m_roomName(roomName) {
-    std::cout << "[BaseDevice] Ñîçäàíî óñòðîéñòâî #" << m_id << ": " << m_name << std::endl;
+    std::cout << "[BaseDevice] Ð¡Ð¾Ð·Ð´Ð°Ð½Ð¾ ÑƒÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð¾ #" << m_id << ": " << m_name << std::endl;
 }
 
-// ÃËÓÁÎÊÎÅ ÊÎÏÈÐÎÂÀÍÈÅ: ñîçäà¸ì íîâóþ ñòðîêó äëÿ êîìíàòû
+// Ð“Ð›Ð£Ð‘ÐžÐšÐžÐ• ÐšÐžÐŸÐ˜Ð ÐžÐ’ÐÐÐ˜Ð•: ÑÐ¾Ð·Ð´Ð°Ñ‘Ð¼ Ð½Ð¾Ð²ÑƒÑŽ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ð´Ð»Ñ ÐºÐ¾Ð¼Ð½Ð°Ñ‚Ñ‹
 BaseDevice::BaseDevice(const BaseDevice& other)
     : m_id(NextId()), m_name(other.m_name), m_isOn(other.m_isOn),
     m_isBroken(other.m_isBroken), m_powerConsumption(other.m_powerConsumption) {
-    // Åñëè ó îðèãèíàëà åñòü êîìíàòà, ñîçäà¸ì Å¨ ÊÎÏÈÞ
+    // Ð•ÑÐ»Ð¸ Ñƒ Ð¾Ñ€Ð¸Ð³Ð¸Ð½Ð°Ð»Ð° ÐµÑÑ‚ÑŒ ÐºÐ¾Ð¼Ð½Ð°Ñ‚Ð°, ÑÐ¾Ð·Ð´Ð°Ñ‘Ð¼ Ð•Ð ÐšÐžÐŸÐ˜Ð®
     if (other.m_roomName) {
         m_roomName = std::make_shared<std::string>(*other.m_roomName);
     }
-    std::cout << "[BaseDevice] Êîïèðîâàíèå (ãëóáîêîå): #" << other.m_id << " -> #" << m_id << std::endl;
+    std::cout << "[BaseDevice] ÐšÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ (Ð³Ð»ÑƒÐ±Ð¾ÐºÐ¾Ðµ): #" << other.m_id << " -> #" << m_id << std::endl;
 }
 
 BaseDevice::BaseDevice(BaseDevice&& other) noexcept
@@ -23,17 +23,17 @@ BaseDevice::BaseDevice(BaseDevice&& other) noexcept
     m_isBroken(other.m_isBroken), m_powerConsumption(other.m_powerConsumption),
     m_roomName(std::move(other.m_roomName)) {
     other.m_id = -1;
-    std::cout << "[BaseDevice] Ïåðåìåùåíèå: #" << m_id << std::endl;
+    std::cout << "[BaseDevice] ÐŸÐµÑ€ÐµÐ¼ÐµÑ‰ÐµÐ½Ð¸Ðµ: #" << m_id << std::endl;
 }
 
 BaseDevice& BaseDevice::operator=(const BaseDevice& other) {
-    std::cout << "[BaseDevice] Îïåðàòîð ïðèñâàèâàíèÿ" << std::endl;
+    std::cout << "[BaseDevice] ÐžÐ¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€ Ð¿Ñ€Ð¸ÑÐ²Ð°Ð¸Ð²Ð°Ð½Ð¸Ñ" << std::endl;
     if (this == &other) return *this;
     m_name = other.m_name;
     m_isOn = other.m_isOn;
     m_isBroken = other.m_isBroken;
     m_powerConsumption = other.m_powerConsumption;
-    // Ãëóáîêîå ïðèñâàèâàíèå êîìíàòû
+    // Ð“Ð»ÑƒÐ±Ð¾ÐºÐ¾Ðµ Ð¿Ñ€Ð¸ÑÐ²Ð°Ð¸Ð²Ð°Ð½Ð¸Ðµ ÐºÐ¾Ð¼Ð½Ð°Ñ‚Ñ‹
     if (other.m_roomName) {
         m_roomName = std::make_shared<std::string>(*other.m_roomName);
     }
@@ -44,7 +44,7 @@ BaseDevice& BaseDevice::operator=(const BaseDevice& other) {
 }
 
 BaseDevice::~BaseDevice() noexcept {
-    std::cout << "[BaseDevice] Óíè÷òîæåíî óñòðîéñòâî #" << m_id << ": " << m_name << std::endl;
+    std::cout << "[BaseDevice] Ð£Ð½Ð¸Ñ‡Ñ‚Ð¾Ð¶ÐµÐ½Ð¾ ÑƒÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð¾ #" << m_id << ": " << m_name << std::endl;
 }
 
 int BaseDevice::NextId() {
@@ -52,18 +52,18 @@ int BaseDevice::NextId() {
 }
 
 std::string BaseDevice::FormatHeader() const {
-    std::string room = m_roomName ? *m_roomName : "áåç êîìíàòû";
-    return "Óñòðîéñòâî #" + std::to_string(m_id) + " '" + m_name + "' (" + std::to_string(m_powerConsumption) + " Âò, êîìíàòà: " + room + ")";
+    std::string room = m_roomName ? *m_roomName : "Ð±ÐµÐ· ÐºÐ¾Ð¼Ð½Ð°Ñ‚Ñ‹";
+    return "Ð£ÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð¾ #" + std::to_string(m_id) + " '" + m_name + "' (" + std::to_string(m_powerConsumption) + " Ð’Ñ‚, ÐºÐ¾Ð¼Ð½Ð°Ñ‚Ð°: " + room + ")";
 }
 
 std::string BaseDevice::Describe() const {
-    return FormatHeader() + ", òèï: " + GetType();
+    return FormatHeader() + ", Ñ‚Ð¸Ð¿: " + GetType();
 }
 
 void BaseDevice::RenameRoom(const std::string& newName) {
     if (m_roomName) {
         *m_roomName = newName;
-        std::cout << "  Êîìíàòà óñòðîéñòâà #" << m_id << " ïåðåèìåíîâàíà â '" << newName << "'." << std::endl;
+        std::cout << "  ÐšÐ¾Ð¼Ð½Ð°Ñ‚Ð° ÑƒÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð° #" << m_id << " Ð¿ÐµÑ€ÐµÐ¸Ð¼ÐµÐ½Ð¾Ð²Ð°Ð½Ð° Ð² '" << newName << "'." << std::endl;
     }
 }
 
@@ -72,9 +72,9 @@ void BaseDevice::TurnOn() {
         throw DeviceBrokenException(m_name);
     }
     m_isOn = true;
-    std::cout << "  Óñòðîéñòâî '" << m_name << "' âêëþ÷åíî." << std::endl;
+    std::cout << "  Ð£ÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð¾ '" << m_name << "' Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¾." << std::endl;
 }
 
-void BaseDevice::TurnOff() { m_isOn = false; std::cout << "  Óñòðîéñòâî '" << m_name << "' âûêëþ÷åíî." << std::endl; }
-void BaseDevice::Break() { m_isBroken = true; m_isOn = false; std::cout << "  Óñòðîéñòâî '" << m_name << "' ñëîìàëîñü!" << std::endl; }
-void BaseDevice::Repair() { m_isBroken = false; std::cout << "  Óñòðîéñòâî '" << m_name << "' îòðåìîíòèðîâàíî." << std::endl; }
+void BaseDevice::TurnOff() { m_isOn = false; std::cout << "  Ð£ÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð¾ '" << m_name << "' Ð²Ñ‹ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¾." << std::endl; }
+void BaseDevice::Break() { m_isBroken = true; m_isOn = false; std::cout << "  Ð£ÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð¾ '" << m_name << "' ÑÐ»Ð¾Ð¼Ð°Ð»Ð¾ÑÑŒ!" << std::endl; }
+void BaseDevice::Repair() { m_isBroken = false; std::cout << "  Ð£ÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð¾ '" << m_name << "' Ð¾Ñ‚Ñ€ÐµÐ¼Ð¾Ð½Ñ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¾." << std::endl; }

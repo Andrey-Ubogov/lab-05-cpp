@@ -1,30 +1,30 @@
-#include "SmartThermostat.hpp"
+п»ї#include "SmartThermostat.hpp"
 #include "HeatingModes.hpp"
 
 SmartThermostat::SmartThermostat(const std::string& name, int power, std::shared_ptr<std::string> roomName, std::unique_ptr<IHeatingMode> mode)
     : BaseDevice(name, power, roomName), m_mode(std::move(mode)) {
-    std::cout << "[SmartThermostat] Создан термостат: " << GetName() << std::endl;
+    std::cout << "[SmartThermostat] РЎРѕР·РґР°РЅ С‚РµСЂРјРѕСЃС‚Р°С‚: " << GetName() << std::endl;
 }
 
 void SmartThermostat::SetMode(std::unique_ptr<IHeatingMode> newMode) {
     m_mode = std::move(newMode);
-    std::cout << "  Термостат '" << GetName() << "' переключен в режим: " << m_mode->GetModeName() << std::endl;
+    std::cout << "  РўРµСЂРјРѕСЃС‚Р°С‚ '" << GetName() << "' РїРµСЂРµРєР»СЋС‡РµРЅ РІ СЂРµР¶РёРј: " << m_mode->GetModeName() << std::endl;
 }
 
 std::string SmartThermostat::Describe() const {
-    return "Термостат '" + GetName() + "': режим '" + m_mode->GetModeName() +
-        "', целевая температура " + std::to_string(m_mode->GetTargetTemperature()) + " C";
+    return "РўРµСЂРјРѕСЃС‚Р°С‚ '" + GetName() + "': СЂРµР¶РёРј '" + m_mode->GetModeName() +
+        "', С†РµР»РµРІР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР° " + std::to_string(m_mode->GetTargetTemperature()) + " C";
 }
 
-// Глубокая копия термостата
+// Р“Р»СѓР±РѕРєР°СЏ РєРѕРїРёСЏ С‚РµСЂРјРѕСЃС‚Р°С‚Р°
 std::unique_ptr<BaseDevice> SmartThermostat::Clone() const {
-    // Создаем копию режима (предполагаем, что у нас только 2 режима, выбираем по имени)
+    // РЎРѕР·РґР°РµРј РєРѕРїРёСЋ СЂРµР¶РёРјР° (РїСЂРµРґРїРѕР»Р°РіР°РµРј, С‡С‚Рѕ Сѓ РЅР°СЃ С‚РѕР»СЊРєРѕ 2 СЂРµР¶РёРјР°, РІС‹Р±РёСЂР°РµРј РїРѕ РёРјРµРЅРё)
     std::unique_ptr<IHeatingMode> modeCopy;
-    if (m_mode->GetModeName() == "Экономия") {
+    if (m_mode->GetModeName() == "Р­РєРѕРЅРѕРјРёСЏ") {
         modeCopy = std::make_unique<EconomyMode>();
     }
     else {
         modeCopy = std::make_unique<ComfortMode>();
     }
-    return std::make_unique<SmartThermostat>(GetName(), GetPower(), std::make_shared<std::string>("Комната"), std::move(modeCopy));
+    return std::make_unique<SmartThermostat>(GetName(), GetPower(), std::make_shared<std::string>("РљРѕРјРЅР°С‚Р°"), std::move(modeCopy));
 }

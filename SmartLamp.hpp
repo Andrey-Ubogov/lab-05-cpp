@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "BaseDevice.hpp"
 #include "IConnectable.hpp"
 
@@ -11,18 +11,18 @@ public:
     SmartLamp(const std::string& name, int power, std::shared_ptr<std::string> roomName, int brightness = 100);
     SmartLamp(const SmartLamp& other);
 
-    // Переопределение метода базы
-    std::string GetType() const override { return "Умная лампа"; }
+    // РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРёРµ РјРµС‚РѕРґР° Р±Р°Р·С‹
+    std::string GetType() const override { return "РЈРјРЅР°СЏ Р»Р°РјРїР°"; }
 
-    // Скрываем невиртуальный метод базы (для демонстрации)
-    std::string GetCategory() const { return "Осветительный прибор"; }
+    // РЎРєСЂС‹РІР°РµРј РЅРµРІРёСЂС‚СѓР°Р»СЊРЅС‹Р№ РјРµС‚РѕРґ Р±Р°Р·С‹ (РґР»СЏ РґРµРјРѕРЅСЃС‚СЂР°С†РёРё)
+    std::string GetCategory() const { return "РћСЃРІРµС‚РёС‚РµР»СЊРЅС‹Р№ РїСЂРёР±РѕСЂ"; }
 
     std::string Describe() const override;
     std::unique_ptr<BaseDevice> Clone() const override { return std::make_unique<SmartLamp>(*this); }
 
     void SetBrightness(int brightness);
 
-    // Реализация контракта IConnectable
+    // Р РµР°Р»РёР·Р°С†РёСЏ РєРѕРЅС‚СЂР°РєС‚Р° IConnectable
     void ConnectToWiFi() override;
     void DisconnectFromWiFi() override;
 };

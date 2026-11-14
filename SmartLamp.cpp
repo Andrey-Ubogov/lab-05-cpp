@@ -1,34 +1,34 @@
-#include "SmartLamp.hpp"
+ï»¿#include "SmartLamp.hpp"
 
 SmartLamp::SmartLamp(const std::string& name, int power, std::shared_ptr<std::string> roomName, int brightness)
     : BaseDevice(name, power, roomName), m_brightness(brightness) {
-    std::cout << "[SmartLamp] Ñîçäàíà ëàìïà: " << GetName() << std::endl;
+    std::cout << "[SmartLamp] Ð¡Ð¾Ð·Ð´Ð°Ð½Ð° Ð»Ð°Ð¼Ð¿Ð°: " << GetName() << std::endl;
 }
 
 SmartLamp::SmartLamp(const SmartLamp& other)
     : BaseDevice(other), m_brightness(other.m_brightness) {
-    std::cout << "[SmartLamp] Êîïèðîâàíèå ëàìïû" << std::endl;
+    std::cout << "[SmartLamp] ÐšÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð»Ð°Ð¼Ð¿Ñ‹" << std::endl;
 }
 
 std::string SmartLamp::Describe() const {
-    return BaseDevice::Describe() + ", ÿðêîñòü: " + std::to_string(m_brightness) + "%";
+    return BaseDevice::Describe() + ", ÑÑ€ÐºÐ¾ÑÑ‚ÑŒ: " + std::to_string(m_brightness) + "%";
 }
 
 void SmartLamp::ConnectToWiFi() {
     m_isConnected = true;
-    std::cout << "  Ëàìïà '" << GetName() << "' ïîäêëþ÷åíà ê Wi-Fi." << std::endl;
+    std::cout << "  Ð›Ð°Ð¼Ð¿Ð° '" << GetName() << "' Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð° Ðº Wi-Fi." << std::endl;
 }
 
 void SmartLamp::DisconnectFromWiFi() {
     m_isConnected = false;
-    std::cout << "  Ëàìïà '" << GetName() << "' îòêëþ÷åíà îò Wi-Fi." << std::endl;
+    std::cout << "  Ð›Ð°Ð¼Ð¿Ð° '" << GetName() << "' Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð° Ð¾Ñ‚ Wi-Fi." << std::endl;
 }
 
 void SmartLamp::SetBrightness(int brightness) {
     if (brightness < 0 || brightness > 100) {
-        std::cout << "  Îøèáêà: ßðêîñòü äîëæíà áûòü îò 0 äî 100." << std::endl;
+        std::cout << "  ÐžÑˆÐ¸Ð±ÐºÐ°: Ð¯Ñ€ÐºÐ¾ÑÑ‚ÑŒ Ð´Ð¾Ð»Ð¶Ð½Ð° Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚ 0 Ð´Ð¾ 100." << std::endl;
         return;
     }
     m_brightness = brightness;
-    std::cout << "  ßðêîñòü ëàìïû '" << GetName() << "' èçìåíåíà íà " << m_brightness << "%." << std::endl;
+    std::cout << "  Ð¯Ñ€ÐºÐ¾ÑÑ‚ÑŒ Ð»Ð°Ð¼Ð¿Ñ‹ '" << GetName() << "' Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð° Ð½Ð° " << m_brightness << "%." << std::endl;
 }

@@ -1,6 +1,6 @@
-#pragma once
+п»ї#pragma once
 
-// Объект поведения
+// РћР±СЉРµРєС‚ РїРѕРІРµРґРµРЅРёСЏ
 class IHeatingMode {
 public:
     virtual ~IHeatingMode() = default;

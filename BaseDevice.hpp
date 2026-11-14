@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <string>
 #include <iostream>
 #include <memory>
@@ -21,7 +21,7 @@ public:
     virtual std::string Describe() const;
 
     std::string GetCategory() const {
-        return "Обычное устройство";
+        return "РћР±С‹С‡РЅРѕРµ СѓСЃС‚СЂРѕР№СЃС‚РІРѕ";
     }
 
     void TurnOn();
