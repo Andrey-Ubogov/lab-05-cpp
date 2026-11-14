@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 #include <iostream>
 #include <memory>
@@ -12,21 +11,23 @@ public:
     static int NextId();
 
     BaseDevice(const std::string& name, int power, std::shared_ptr<std::string> roomName);
-    BaseDevice(const BaseDevice& other);            // Глубокое копирование
+    BaseDevice(const BaseDevice& other);
     BaseDevice(BaseDevice&& other) noexcept;
     BaseDevice& operator=(const BaseDevice& other);
-    virtual ~BaseDevice();
+    virtual ~BaseDevice() noexcept; 
 
     virtual std::string GetType() const = 0;
     virtual std::unique_ptr<BaseDevice> Clone() const = 0;
     virtual std::string Describe() const;
 
+    std::string GetCategory() const {
+        return "Обычное устройство";
+    }
+
     void TurnOn();
     void TurnOff();
     void Break();
     void Repair();
-
-    // Метод для изменения названия комнаты (через указатель)
     void RenameRoom(const std::string& newName);
 
     int GetId() const { return m_id; }
@@ -37,11 +38,10 @@ public:
 
 private:
     inline static int s_lastId = 0;
-
     int m_id;
     std::string m_name;
     bool m_isOn;
     bool m_isBroken;
     int m_powerConsumption;
-    std::shared_ptr<std::string> m_roomName; // Поле для демонстрации копирования
+    std::shared_ptr<std::string> m_roomName;
 };
