@@ -1,4 +1,5 @@
 #include "BaseDevice.hpp"
+#include "Exceptions.hpp"
 
 BaseDevice::BaseDevice(const std::string& name, int power, std::shared_ptr<std::string> roomName)
     : m_id(NextId()), m_name(name), m_isOn(false), m_isBroken(false),
@@ -42,7 +43,7 @@ BaseDevice& BaseDevice::operator=(const BaseDevice& other) {
     return *this;
 }
 
-BaseDevice::~BaseDevice() {
+BaseDevice::~BaseDevice() noexcept {
     std::cout << "[BaseDevice] Уничтожено устройство #" << m_id << ": " << m_name << std::endl;
 }
 
@@ -68,8 +69,7 @@ void BaseDevice::RenameRoom(const std::string& newName) {
 
 void BaseDevice::TurnOn() {
     if (m_isBroken) {
-        std::cout << "  Ошибка: Устройство '" << m_name << "' сломано! Нельзя включить." << std::endl;
-        return;
+        throw DeviceBrokenException(m_name);
     }
     m_isOn = true;
     std::cout << "  Устройство '" << m_name << "' включено." << std::endl;
