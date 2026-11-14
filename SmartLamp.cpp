@@ -14,6 +14,16 @@ std::string SmartLamp::Describe() const {
     return BaseDevice::Describe() + ", €ркость: " + std::to_string(m_brightness) + "%";
 }
 
+void SmartLamp::ConnectToWiFi() {
+    m_isConnected = true;
+    std::cout << "  Ћампа '" << GetName() << "' подключена к Wi-Fi." << std::endl;
+}
+
+void SmartLamp::DisconnectFromWiFi() {
+    m_isConnected = false;
+    std::cout << "  Ћампа '" << GetName() << "' отключена от Wi-Fi." << std::endl;
+}
+
 void SmartLamp::SetBrightness(int brightness) {
     if (brightness < 0 || brightness > 100) {
         std::cout << "  ќшибка: яркость должна быть от 0 до 100." << std::endl;
